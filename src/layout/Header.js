@@ -2,9 +2,14 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { setUserInfo, setLoggedIn } from '../actions';
 import { fetchUserInfo } from '../utils';
+import history from '../history';
 import './Header.scss';
 
-const Header = ({ userInfo, loggedIn, onClickSignIn, onclickSignOut }) => {
+const Header = ({ userInfo, loggedIn, onClickSignIn, onclickSignOut, history }) => {
+  useEffect(() => {
+    history.push('/');
+  }, [loggedIn]);
+
   const renderSignedIn = () => (
     <>
       <img src={userInfo.avatar} alt="头像" />
@@ -30,7 +35,8 @@ const Header = ({ userInfo, loggedIn, onClickSignIn, onclickSignOut }) => {
 
 const mapStateToProps = ({ userInfo, loggedIn }) => ({
   userInfo,
-  loggedIn
+  loggedIn,
+  history
 });
 
 const mapDispatchToProps = dispatch => ({

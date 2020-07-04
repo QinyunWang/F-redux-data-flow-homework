@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { Router, Route, Switch } from 'react-router-dom';
+import history from './history';
 import Header from './layout/Header';
 import Menu from './layout/Menu';
 import Home from './views/Home';
@@ -10,7 +11,7 @@ class App extends Component {
   render() {
     return (
       <div className="app">
-        <Router>
+        <Router history={history}>
           <Header />
           <Menu />
           <main className="main">
