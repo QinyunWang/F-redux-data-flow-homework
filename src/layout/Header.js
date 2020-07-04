@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { setUserInfo, setLoggedIn } from '../actions';
 import { fetchUserInfo } from '../utils';
@@ -28,9 +28,9 @@ const Header = ({ userInfo, loggedIn, onClickSignIn, onclickSignOut }) => {
   );
 };
 
-const mapStateToProps = state => ({
-  userInfo: state.userInfo,
-  loggedIn: state.loggedIn
+const mapStateToProps = ({ userInfo, loggedIn }) => ({
+  userInfo,
+  loggedIn
 });
 
 const mapDispatchToProps = dispatch => ({
