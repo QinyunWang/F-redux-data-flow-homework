@@ -1,19 +1,47 @@
-import React, { Component } from 'react';
+import React from 'react';
+import { connect } from 'react-redux';
+import { setUserInfo, setLoggedIn } from '../actions';
+import { fetchUserInfo } from '../utils';
 import './Header.scss';
 
-class Header extends Component {
-  render() {
-    return (
-      <header className="header">
-        <div className="header-wrapper">
-          <img src="" alt="头像" />
-          <span className="username">用户名</span>
+const Header = ({ userInfo, loggedIn, onClickSignIn, onclickSignOut }) => {
+  const renderSignedIn = () => (
+    <>
+      <img src={userInfo.avatar} alt="头像" />
+      <span className="username">{userInfo.name}</span>
+      <a className="sign" onClick={onclickSignOut}>
+        Sign out
+      </a>
+    </>
+  );
 
-          <a className="sign">Sign out</a>
-        </div>
-      </header>
-    );
+  const renderSignedOut = () => (
+    <a className="sign" onClick={onClickSignIn}>
+      Sign in
+    </a>
+  );
+
+  return (
+    <header className="header">
+      <div className="header-wrapper">{loggedIn ? renderSignedIn() : renderSignedOut()}</div>
+    </header>
+  );
+};
+
+const mapStateToProps = state => ({
+  userInfo: state.userInfo,
+  loggedIn: state.loggedIn
+});
+
+const mapDispatchToProps = dispatch => ({
+  onClickSignIn: async () => {
+    const userInfo = await fetchUserInfo();
+    dispatch(setUserInfo(userInfo));
+    dispatch(setLoggedIn(true));
+  },
+  onclickSignOut: () => {
+    dispatch(setLoggedIn(false));
   }
-}
+});
 
-export default Header;
+export default connect(mapStateToProps, mapDispatchToProps)(Header);

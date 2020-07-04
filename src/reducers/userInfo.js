@@ -1,17 +1,14 @@
 const defaultState = {
-  loggedIn: false,
-  userInfo: {
-    name: '',
-    id: '',
-    avatar: '',
-    permissions: []
-  }
+  name: '',
+  id: '',
+  avatar: '',
+  permissions: []
 };
 
 const userInfo = (state = defaultState, action) => {
   switch (action.type) {
-    case 'GET_USER_INFO':
-      return { ...state, userInfo: action.payload };
+    case 'SET_USER_INFO':
+      return action.payload;
     default:
       return state;
   }

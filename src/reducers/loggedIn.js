@@ -1,7 +1,7 @@
-const loggedIn = (state = {}, action) => {
+const loggedIn = (state = false, action) => {
   switch (action.type) {
     case 'SET_LOGGED_IN':
-      return { ...state, loggedIn: action.payload };
+      return action.payload;
     default:
       return state;
   }
